@@ -23,45 +23,58 @@ ordlista = [
     "förkastlighet", "tvetydighet", "vidlyftighet", "omvälvning"
 ]
    
-
+bokstäver=[
+'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+'u', 'v', 'w', 'x', 'y', 'z',
+'å', 'ä', 'ö', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+'U', 'V', 'W', 'X', 'Y', 'Z',
+'Å', 'Ä', 'Ö'
+]
 ord = random.choice(ordlista)
 
-gissade_bokstaver = []
+gissade_bokstäver = []
 gissning_försök = 10
+ 
 
-print("Välkommen till ordgissningsspelet!")
-print("Du ska gissa vilket ord datorn har valt.")
-print("Du har 10 försök.")
 
 while gissning_försök > 0:
-
-    print("\nOrdet:", end=" ")
-
-    for bokstav in ord:
-        if bokstav in gissade_bokstaver:
-            print(bokstav, end=" ")
-        else:
-            print("_", end=" ")
-
-    print("\nFörsök kvar:", gissning_försök)
-
-    gissning = input(f"Du ska gissa ett ord, bokstav för bokstav, på 9 bokstäver\n Ange en gissnings ").lower()
-
-    if gissning in gissade_bokstaver:
+    gissning = input(f"Du ska gissa ett ord, bokstav för bokstav, på 9 bokstäver\n Ange en gissning ").lower()
+    
+    if gissning in gissade_bokstäver:
         print("Du har redan gissat den bokstaven!")
         continue
-
-    gissade_bokstaver.append(gissning)
-
+    
+    gissade_bokstäver.append(gissning)
+        
+    
     if gissning in ord:
         print("Rätt bokstav!")
+    elif gissning not in bokstäver:
+        print("Ogiltigt gissning")
     else:
-        print("Fel bokstav!")
-        gissning_försök -= 1
+        gissning_försök=gissning_försök- 1
+        print(f"Du har {gissning_försök} gissningar kvar.")
+    
+    print("Ordet:", end=" ")
+    print("Felgissningar:", end=" ")
 
-    if all(bokstav in gissade_bokstaver for bokstav in ord):
-        print("\nGrattis! Du gissade rätt ord:", ord)
-        break
+    for bokstav in ord:
+        if bokstav in gissade_bokstäver:
+            print(bokstav, end=" ")
+        else:
+            print("*", end=" ")
+    print("\n") 
+
+
+
+   
+if all(bokstav in gissade_bokstäver for bokstav in ord):
+    print("\nGrattis! Du gissade rätt ord:", ord)
+    
+      
+        
 
 if gissning_försök == 0:
     print("\nDu förlorade! Ordet var:", ord)
